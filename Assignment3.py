@@ -1,6 +1,6 @@
 import tkinter
 
-class calendarApp(tkinkter.TK):
+class calendarApp(tkinter.Tk):
     def __init__(self, parent):
         tkinter.Tk.__init__(self, parent)
         self.parent = parent
@@ -12,7 +12,8 @@ class calendarApp(tkinkter.TK):
 
 
 if __name__ == '__main__':
-    app = calendarApp()
+    app = calendarApp(None)
     app.title ('Calendar App')
+    app.mainloop()
 
         
