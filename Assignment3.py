@@ -9,5 +9,10 @@ class calendarApp(tkinkter.TK):
 
     def initialise(self):
         pass
-        
+
+
+if __name__ == '__main__':
+    app = calendarApp()
+    app.title ('Calendar App')
+
         
