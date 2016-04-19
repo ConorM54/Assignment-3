@@ -23,7 +23,18 @@ class calendarApp(tkinter.Tk):
         self.monthsOpt = tkinter.OptionMenu(self, self.monthVal, *monthList)
         self.monthsOpt.grid(column= 1, row = 0, sticky = "WS", padx= 2)
 
-       
+        self.labelVariable = tkinter.StringVar()
+        label = tkinter.Label(self, textvariable= self.labelVariable,anchor="w",fg="white",bg = "gray")
+        label.grid(column= 0, row = 1, sticky = "WS", padx= 2)
+        self.labelVariable.set(u"Choose Year:")
+
+        self.yearVal = tkinter.StringVar()
+        yearList = []
+        for year in range(2016,2026):
+            yearList.append(year)
+            
+        self.yearOpt = tkinter.OptionMenu(self, self.yearVal, *yearList)
+        self.yearOpt.grid(column= 1, row = 1, sticky = "WS", padx= 2)
         """self.labelVariable = tkinter.StringVar()
         label = tkinter.Label(self, textvariable=self.labelVariable,anchor="w",fg="white",bg = "blue")
         label.grid(column=0, row =1, rowspan=2, sticky = "SEW")
