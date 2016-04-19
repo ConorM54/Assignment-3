@@ -16,12 +16,14 @@ class calendarApp(tkinter.Tk):
         label.grid(column= 0, row = 0, sticky = "WS", padx= 2)
         self.labelVariable.set(u"Choose Month:")
 
-        self.monthVal = tkinter.StringVar()
+        self.monthVal = tkinter.IntVar()
+        self.monthVal.set(1)
+        mVal = tkinter.StringVar()
         
         monthList = []
         for month in range(1,13):
             monthList.append(calendar.month_name[month])
-        self.monthsOpt = tkinter.OptionMenu(self, self.monthVal, *monthList, command= self.setYear)
+        self.monthsOpt = tkinter.OptionMenu(self, mVal, *monthList, command= self.setMonth)
         self.monthsOpt.grid(column= 1, row = 0, sticky = "EWS", padx= 2)
 
        
@@ -60,7 +62,7 @@ class calendarApp(tkinter.Tk):
     def createCal (self):
         
         self.cal = calendar.TextCalendar(calendar.MONDAY)
-        self.c = self.cal.formatmonth(int(self.yearVal.get()), 1)
+        self.c = self.cal.formatmonth(int(self.getYear()), self.monthVal.get())
         displayCalendar = tkinter.Label(self, text= self.c , fg="white",bg = "red", padx = 3, pady = 3)
         displayCalendar.grid(column = 3, row = 0, columnspan= 2, rowspan= 3, sticky = "EW")
 
@@ -72,12 +74,17 @@ class calendarApp(tkinter.Tk):
         self.labelVariable.set(self.entryVariable.get())
 
     def setYear (self, val):
-        print(val)
-        #self.c = self.cal.formatmonth(int(val), 1)
         self.yearVal.set(val)
         self.createCal()
 
+    def getYear(self):
+        return self.yearVal.get()
 
+    def setMonth(self, val):
+        for m1 in range(1,13):
+            if(val == calendar.month_name[m1]):
+                self.monthVal.set(m1)
+        print (self.monthVal.get())
 
 
 
