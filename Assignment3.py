@@ -20,7 +20,7 @@ class calendarApp(tkinter.Tk):
         monthList = []
         for month in range(1,13):
             monthList.append(calendar.month_name[month])
-        self.monthsOpt = tkinter.OptionMenu(self, self.monthVal, *monthList)
+        self.monthsOpt = tkinter.OptionMenu(self, self.monthVal, *monthList, command= self.changeYear)
         self.monthsOpt.grid(column= 1, row = 0, sticky = "EWS", padx= 2)
 
         self.labelVariable = tkinter.StringVar()
@@ -30,19 +30,8 @@ class calendarApp(tkinter.Tk):
 
         self.yearVal = tkinter.StringVar()
         self.yearVal.set(2015)
-        yearList = []
-        for year in range(2016,2026):
-            yearList.append(year)
-            
-        self.yearOpt = tkinter.OptionMenu(self, self.yearVal, *yearList)
-        self.yearOpt.grid(column= 1, row = 1, sticky = "EWS", padx= 2)
-
-        self.cal = calendar.TextCalendar(calendar.MONDAY)
-        self.c = self.cal.formatmonth(int(self.yearVal.get()), 1)
-        displayCalendar = tkinter.Label(self, text= self.c , fg="white",bg = "red", padx = 3, pady = 3)
-        displayCalendar.grid(column = 3, row = 0, columnspan= 2, rowspan= 3, sticky = "EW")
-        displayCalendar.bind("<Button-1>", self.changeYear)
-
+        self.createCal()
+        
 
         """self.labelVariable = tkinter.StringVar()
         label = tkinter.Label(self, textvariable=self.labelVariable,anchor="w",fg="white",bg = "blue")
@@ -60,15 +49,31 @@ class calendarApp(tkinter.Tk):
         self.geometry(self.geometry())
         self.grid()
 
+    def createCal (self):
+        yearList = []
+        for year in range(2016,2026):
+            yearList.append(year)
+            
+        self.yearOpt = tkinter.OptionMenu(self, self.yearVal, *yearList, command = self.changeYear)
+        self.yearOpt.grid(column= 1, row = 1, sticky = "EWS", padx= 2)
+
+        self.cal = calendar.TextCalendar(calendar.MONDAY)
+        self.c = self.cal.formatmonth(int(self.yearVal.get()), 1)
+        displayCalendar = tkinter.Label(self, text= self.c , fg="white",bg = "red", padx = 3, pady = 3)
+        displayCalendar.grid(column = 3, row = 0, columnspan= 2, rowspan= 3, sticky = "EW")
+
+
     def OnButtonClick(self):
        self.labelVariable.set(self.entryVariable.get())
 
     def OnPressEnter(self,event):
         self.labelVariable.set(self.entryVariable.get())
 
-    def changeYear (self):
-        self.c = self.cal.formatmonth(int(self.yearVal.get()), 1)
-        
+    def changeYear (self, val):
+        print(val)
+        self.c = self.cal.formatmonth(int(val), 1)
+        self.createCal()
+
 
 
 
