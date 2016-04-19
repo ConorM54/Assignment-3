@@ -29,6 +29,7 @@ class calendarApp(tkinter.Tk):
         self.labelVariable.set(u"Choose Year:")
 
         self.yearVal = tkinter.StringVar()
+        self.yearVal.set(2015)
         yearList = []
         for year in range(2016,2026):
             yearList.append(year)
@@ -37,9 +38,10 @@ class calendarApp(tkinter.Tk):
         self.yearOpt.grid(column= 1, row = 1, sticky = "EWS", padx= 2)
 
         self.cal = calendar.TextCalendar(calendar.MONDAY)
-        c = self.cal.formatmonth(2015, 1)
-        displayCalendar = tkinter.Label(self, textvariable= c,fg="white",bg = "gray")
-        displayCalendar.grid(column = 3, row = 0, rowspan= 3, sticky = "EW")
+        self.c = self.cal.formatmonth(int(self.yearVal.get()), 1)
+        displayCalendar = tkinter.Label(self, text= self.c , fg="white",bg = "red", padx = 3, pady = 3)
+        displayCalendar.grid(column = 3, row = 0, columnspan= 2, rowspan= 3, sticky = "EW")
+        displayCalendar.bind("<Button-1>", self.changeYear)
 
 
         """self.labelVariable = tkinter.StringVar()
@@ -49,9 +51,9 @@ class calendarApp(tkinter.Tk):
 
 
         #Allows user to resize window
-        #self.grid_columnconfigure(0,weight=1)
-        #self.grid_columnconfigure(1,weight=1)
-        #self.grid_columnconfigure(2,weight=1)
+        self.grid_columnconfigure(0,weight=1)
+        self.grid_columnconfigure(1,weight=1)
+        self.grid_columnconfigure(2,weight=2)
         #stops vertical resizing
         self.resizable(True,False)
         self.update()
@@ -63,6 +65,11 @@ class calendarApp(tkinter.Tk):
 
     def OnPressEnter(self,event):
         self.labelVariable.set(self.entryVariable.get())
+
+    def changeYear (self):
+        self.c = self.cal.formatmonth(int(self.yearVal.get()), 1)
+        
+
 
 
 if __name__ == '__main__':
