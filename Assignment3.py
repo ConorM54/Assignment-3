@@ -2,9 +2,6 @@ import tkinter
 import calendar 
 
 class calendarApp(tkinter.Tk):
-
-    self.yearVal = tkinter.StringVar()
-
     def __init__(self, parent):
         tkinter.Tk.__init__(self, parent)
         self.parent = parent
@@ -23,7 +20,7 @@ class calendarApp(tkinter.Tk):
         monthList = []
         for month in range(1,13):
             monthList.append(calendar.month_name[month])
-        self.monthsOpt = tkinter.OptionMenu(self, self.monthVal, *monthList, command= self.change)
+        self.monthsOpt = tkinter.OptionMenu(self, self.monthVal, *monthList, command= self.changeYear)
         self.monthsOpt.grid(column= 1, row = 0, sticky = "EWS", padx= 2)
 
         self.labelVariable = tkinter.StringVar()
@@ -31,8 +28,8 @@ class calendarApp(tkinter.Tk):
         label.grid(column= 0, row = 1, sticky = "WS", padx= 2)
         self.labelVariable.set(u"Choose Year:")
 
-        
-        setYear(2015)
+        self.yearVal = tkinter.StringVar()
+        self.yearVal.set(2015)
         self.createCal()
         
 
@@ -61,7 +58,7 @@ class calendarApp(tkinter.Tk):
         self.yearOpt.grid(column= 1, row = 1, sticky = "EWS", padx= 2)
 
         self.cal = calendar.TextCalendar(calendar.MONDAY)
-        self.c = self.cal.formatmonth(int(self.getYear(), self.getMonth())
+        self.c = self.cal.formatmonth(int(self.yearVal.get()), 1)
         displayCalendar = tkinter.Label(self, text= self.c , fg="white",bg = "red", padx = 3, pady = 3)
         displayCalendar.grid(column = 3, row = 0, columnspan= 2, rowspan= 3, sticky = "EW")
 
@@ -72,20 +69,12 @@ class calendarApp(tkinter.Tk):
     def OnPressEnter(self,event):
         self.labelVariable.set(self.entryVariable.get())
 
-    def setYear (self, val):
-        self.yearVal.set(val)
-        createCal()
+    def changeYear (self, val):
+        print(val)
+        self.c = self.cal.formatmonth(int(val), 1)
+        self.createCal()
 
-    def getYear (self):
-        return self.yearVal.get()
-
-    def setMonth (self, val):
-        self.yearVal.set(val)
-        createCal()
-
-    def getMonth (self):
-        return self.yearVal.get()
-
+    
 
 
 
