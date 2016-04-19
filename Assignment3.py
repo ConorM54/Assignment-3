@@ -1,4 +1,5 @@
 import tkinter
+import calendar 
 
 class calendarApp(tkinter.Tk):
     def __init__(self, parent):
@@ -9,23 +10,29 @@ class calendarApp(tkinter.Tk):
 
     def initialise(self):
         self.grid()
-        self.entryVariable = tkinter.StringVar()
-        self.entry = tkinter.Entry(self, textvariable = self.entryVariable)
-        self.entry.grid(column=0,row=0,sticky="EW")
-        self.entry.bind("<Return>", self.OnPressEnter)
-        self.entryVariable.set(u"Enter text here")
-
-        button = tkinter.Button(self, text=u'Test Button', command = self.OnButtonClick)
-        button.grid(column=1,row=1)
-
         self.labelVariable = tkinter.StringVar()
+        label = tkinter.Label(self, textvariable= self.labelVariable,anchor="w",fg="white",bg = "gray")
+        label.grid(column= 0, row = 0, sticky = "WS", padx= 2)
+        self.labelVariable.set(u"Choose Month:")
+
+        self.monthVal = tkinter.StringVar()
+        
+        monthList = []
+        for month in range(1,13):
+            monthList.append(calendar.month_name[month])
+        self.monthsOpt = tkinter.OptionMenu(self, self.monthVal, *monthList)
+        self.monthsOpt.grid(column= 1, row = 0, sticky = "WS", padx= 2)
+
+       
+        """self.labelVariable = tkinter.StringVar()
         label = tkinter.Label(self, textvariable=self.labelVariable,anchor="w",fg="white",bg = "blue")
-        label.grid(column=0, row =1, rowspan=2, sticky = "EW")
-        self.labelVariable.set(u"Hello !")
+        label.grid(column=0, row =1, rowspan=2, sticky = "SEW")
+        self.labelVariable.set(u"Hello !")"""
 
 
         #Allows user to resize window
-        self.grid_columnconfigure(0,weight=1)
+        #self.grid_columnconfigure(0,weight=1)
+        #self.grid_columnconfigure(1,weight=3)
         #stops vertical resizing
         self.resizable(True,False)
         self.update()
