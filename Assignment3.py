@@ -80,11 +80,12 @@ class calendarApp(tkinter.Tk):
         mVal = tkinter.StringVar()
         self.date = tkinter.IntVar()
         dateList = []
-        for date in range (1,(calendar.monthrange(int(self.yearVal.get()), int(self.monthVal.get()) )[1])):
+        for date in range (1,(calendar.monthrange(int(self.yearVal.get()), int(self.monthVal.get()) )[1]) +1):
             dateList.append(date)
         
-        self.monthsOpt = tkinter.OptionMenu(self, self.date, *dateList, command= self.setDate)
-        self.monthsOpt.grid(column= 1, row = 3, sticky = "EWS", padx= 2)
+        self.dateOpt = tkinter.OptionMenu(self, self.date, *dateList, command= self.setDate)
+        self.dateOpt.config(width = 20)
+        self.dateOpt.grid(column= 1, row = 3, sticky = "EWS", padx= 2)
 
 
     def OnButtonClick(self):
