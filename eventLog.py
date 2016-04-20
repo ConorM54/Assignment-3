@@ -10,7 +10,7 @@ def readEventLog(year, month, date):
 			if(contents[1] == month):
 				if(contents[2] == date):
 					events.append(contents[3])
-	print (events)
+	print (events)				
 	return events
 
 	fo.close()

@@ -1,5 +1,6 @@
 import tkinter
 import calendar 
+from eventLog import * 
 
 class calendarApp(tkinter.Tk):
     def __init__(self, parent):
@@ -88,10 +89,14 @@ class calendarApp(tkinter.Tk):
 
     def createEventLog(self):
         self.eventVal = tkinter.StringVar()
+        self.eventVal.set("No event planned")
         l1= tkinter.Label(self, text= "Events:", fg="white", background = "gray", padx = 3, pady = 3)
         l1.grid(column =0, row = 4, rowspan= 3, sticky = "WS")
         E1 = tkinter.Entry(self, textvariable= self.eventVal)
-        E1.grid(column = 1, row = 4, columnspan= 3,rowspan = 3, sticky = "EWS")
+        E1.grid(column = 1, row = 4, columnspan= 3, sticky = "EWS")
+        self.eventVal.set(readEventLog(self.getYear(), str(self.monthVal.get()) , str(self.dateVal.get())))
+        l2= tkinter.Label(self, text= self.eventVal, fg="white", background = "gray", padx = 3, pady = 3)
+        l2.grid(column =1, row = 6, rowspan= 3, sticky = "WS")
 
 
 
@@ -112,6 +117,7 @@ class calendarApp(tkinter.Tk):
 
     def setDate (self, val):
         self.dateVal.set(val)
+        self.createEventLog()
 
 
 
