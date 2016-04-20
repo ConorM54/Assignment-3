@@ -40,6 +40,8 @@ class calendarApp(tkinter.Tk):
         self.yearOpt = tkinter.OptionMenu(self, self.yearVal, *yearList, command = self.setYear)
         self.yearOpt.grid(column= 1, row = 1, sticky = "EWS", padx= 2)
 
+        
+
         self.createCal()
         
 
@@ -84,7 +86,7 @@ class calendarApp(tkinter.Tk):
         for m1 in range(1,13):
             if(val == calendar.month_name[m1]):
                 self.monthVal.set(m1)
-        print (self.monthVal.get())
+        self.createCal()
 
 
 
