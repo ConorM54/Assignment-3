@@ -11,10 +11,10 @@ class calendarApp(tkinter.Tk):
 
     def initialise(self):
         
-        self.labelVariable = tkinter.StringVar()
+        self.monthlabel = tkinter.StringVar()
         label = tkinter.Label(self, textvariable= self.labelVariable,anchor="w",fg="white",bg = "gray")
         label.grid(column= 0, row = 0, sticky = "WS", padx= 2)
-        self.labelVariable.set(u"Choose Month:")
+        self.monthlabel.set(u"Choose Month:")
 
         self.monthVal = tkinter.IntVar()
         self.monthVal.set(1)
@@ -40,7 +40,12 @@ class calendarApp(tkinter.Tk):
         self.yearOpt = tkinter.OptionMenu(self, self.yearVal, *yearList, command = self.setYear)
         self.yearOpt.grid(column= 1, row = 1, sticky = "EWS", padx= 2)
 
-        
+        self.labelVariable = tkinter.StringVar()
+        label = tkinter.Label(self, textvariable= self.labelVariable,anchor="w",fg="white",bg = "gray")
+        label.grid(column= 0, row = 3, sticky = "WS", padx= 2)
+        self.labelVariable.set(u"Choose Date:")
+        self.createdateOpt()
+
 
         self.createCal()
         
@@ -68,6 +73,19 @@ class calendarApp(tkinter.Tk):
         displayCalendar = tkinter.Label(self, text= self.c , fg="white",bg = "red", padx = 3, pady = 3)
         displayCalendar.grid(column = 3, row = 0, columnspan= 2, rowspan= 3, sticky = "EW")
 
+    def createdateOpt (self):
+
+        self.dateVal = tkinter.IntVar()
+        self.dateVal.set(1)
+        mVal = tkinter.StringVar()
+        self.date = tkinter.IntVar()
+        dateList = []
+        for date in range (1,(calendar.monthrange(int(self.yearVal.get()), int(self.monthVal.get()) )[1])):
+            dateList.append(date)
+        
+        self.monthsOpt = tkinter.OptionMenu(self, self.date, *dateList, command= self.setDate)
+        self.monthsOpt.grid(column= 1, row = 3, sticky = "EWS", padx= 2)
+
 
     def OnButtonClick(self):
        self.labelVariable.set(self.entryVariable.get())
@@ -87,6 +105,12 @@ class calendarApp(tkinter.Tk):
             if(val == calendar.month_name[m1]):
                 self.monthVal.set(m1)
         self.createCal()
+        self.createdateOpt()
+
+    def setDate (self, val):
+        self.dateVal.set(val)
+
+
 
 
 
