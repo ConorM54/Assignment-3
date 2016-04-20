@@ -12,10 +12,12 @@ class calendarApp(tkinter.Tk):
     def initialise(self):
         
         self.monthlabel = tkinter.StringVar()
-        label = tkinter.Label(self, textvariable= self.labelVariable,anchor="w",fg="white",bg = "gray")
-        label.grid(column= 0, row = 0, sticky = "WS", padx= 2)
+        self.labelVariable= tkinter.StringVar()
         self.monthlabel.set(u"Choose Month:")
 
+        label = tkinter.Label(self, textvariable= self.monthlabel,anchor="w",fg="white",bg = "gray")
+        label.grid(column= 0, row = 0, sticky = "WS", padx= 2)
+       
         self.monthVal = tkinter.IntVar()
         self.monthVal.set(1)
         mVal = tkinter.StringVar()
@@ -50,17 +52,13 @@ class calendarApp(tkinter.Tk):
         self.createCal()
         
 
-        """self.labelVariable = tkinter.StringVar()
-        label = tkinter.Label(self, textvariable=self.labelVariable,anchor="w",fg="white",bg = "blue")
-        label.grid(column=0, row =1, rowspan=2, sticky = "SEW")
-        self.labelVariable.set(u"Hello !")"""
-
 
         #Allows user to resize window
         self.grid_columnconfigure(0,weight=1)
         self.grid_columnconfigure(1,weight=1)
         self.grid_columnconfigure(2,weight=2)
         #stops vertical resizing
+        self.configure(background = "gray")
         self.resizable(True,False)
         self.update()
         self.geometry(self.geometry())
@@ -70,7 +68,7 @@ class calendarApp(tkinter.Tk):
         
         self.cal = calendar.TextCalendar(calendar.MONDAY)
         self.c = self.cal.formatmonth(int(self.getYear()), self.monthVal.get())
-        displayCalendar = tkinter.Label(self, text= self.c , fg="white",bg = "red", padx = 3, pady = 3)
+        displayCalendar = tkinter.Label(self, text= self.c , fg="white",bg = "gray", padx = 3, pady = 3)
         displayCalendar.grid(column = 3, row = 0, columnspan= 2, rowspan= 3, sticky = "EW")
 
     def createdateOpt (self):
@@ -87,12 +85,6 @@ class calendarApp(tkinter.Tk):
         self.dateOpt.config(width = 20)
         self.dateOpt.grid(column= 1, row = 3, sticky = "EWS", padx= 2)
 
-
-    def OnButtonClick(self):
-       self.labelVariable.set(self.entryVariable.get())
-
-    def OnPressEnter(self,event):
-        self.labelVariable.set(self.entryVariable.get())
 
     def setYear (self, val):
         self.yearVal.set(val)
