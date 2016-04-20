@@ -10,8 +10,11 @@ def readEventLog(year, month, date):
 			if(contents[1] == month):
 				if(contents[2] == date):
 					events.append(contents[3])
-	print (events)				
-	return events
+	if(len(events) > 0):				
+	
+		return events
+	else:
+		return "Nothing planned"
 
 	fo.close()
 

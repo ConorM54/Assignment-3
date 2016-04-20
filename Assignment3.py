@@ -94,13 +94,14 @@ class calendarApp(tkinter.Tk):
         self.eventVal.set("No event planned")
         l1= tkinter.Label(self, text= "Events:", fg="white", background = "gray", padx = 3, pady = 3)
         l1.grid(column =0, row = 4, rowspan= 3, sticky = "WS")
-        self.E1 = tkinter.Entry(self, textvariable= self.eventVal.get())
+
+        self.E1 = tkinter.Entry(self)
         self.E1.bind("<Return>", self.onPressEnter)
         self.E1.grid(column = 1, row = 4, columnspan= 3, sticky = "EWS")
     
     def createEventLabel(self):
         self.eventVal.set(readEventLog(self.getYear(), str(self.monthVal.get()) , str(self.dateVal.get())))
-        l2= tkinter.Label(self, text= self.eventVal.get(), fg="white", background = "gray", padx = 3, pady = 3)
+        l2= tkinter.Label(self, textvariable= self.eventVal, fg="white", background = "gray", padx = 3, pady = 3)
         l2.grid(column =1, row = 6, rowspan= 3, sticky = "WS")
         self.ent = self.E1.get()
         eventString =( self.getYear() + "\t" +str(self.monthVal.get()) + "\t" + str(self.dateVal.get()) + "\t" + self.ent)
@@ -126,6 +127,7 @@ class calendarApp(tkinter.Tk):
     def setDate (self, val):
         self.dateVal.set(val)
         self.createEventLog()
+        self.createEventLabel()
 
 
 
