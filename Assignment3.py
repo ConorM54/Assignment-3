@@ -28,6 +28,7 @@ class calendarApp(tkinter.Tk):
             monthList.append(calendar.month_name[month])
         self.monthsOpt = tkinter.OptionMenu(self, mVal, *monthList, command= self.setMonth)
         self.monthsOpt.grid(column= 1, row = 0, sticky = "EWS", padx= 2)
+        self.monthsOpt.config(width = 20, fg="white",bg = "gray")
 
        
         label = tkinter.Label(self, textvariable= self.labelVariable,anchor="w",fg="white",bg = "gray")
@@ -42,6 +43,7 @@ class calendarApp(tkinter.Tk):
             
         self.yearOpt = tkinter.OptionMenu(self, self.yearVal, *yearList, command = self.setYear)
         self.yearOpt.grid(column= 1, row = 1, sticky = "EWS", padx= 2)
+        self.yearOpt.config(width = 20, fg="white",bg = "gray")
 
         self.labelVariable = tkinter.StringVar()
         label = tkinter.Label(self, textvariable= self.labelVariable,anchor="w",fg="white",bg = "gray")
@@ -84,7 +86,7 @@ class calendarApp(tkinter.Tk):
             dateList.append(date)
         
         self.dateOpt = tkinter.OptionMenu(self, self.date, *dateList, command= self.setDate)
-        self.dateOpt.config(width = 20)
+        self.dateOpt.config(width = 20, fg="white",bg = "gray")
         self.dateOpt.grid(column= 1, row = 3, sticky = "EWS", padx= 2)
 
     def createEventLog(self):
@@ -92,14 +94,20 @@ class calendarApp(tkinter.Tk):
         self.eventVal.set("No event planned")
         l1= tkinter.Label(self, text= "Events:", fg="white", background = "gray", padx = 3, pady = 3)
         l1.grid(column =0, row = 4, rowspan= 3, sticky = "WS")
-        E1 = tkinter.Entry(self, textvariable= self.eventVal)
-        E1.grid(column = 1, row = 4, columnspan= 3, sticky = "EWS")
+        self.E1 = tkinter.Entry(self, textvariable= self.eventVal.get())
+        self.E1.bind("<Return>", self.onPressEnter)
+        self.E1.grid(column = 1, row = 4, columnspan= 3, sticky = "EWS")
+    
+    def createEventLabel(self):
         self.eventVal.set(readEventLog(self.getYear(), str(self.monthVal.get()) , str(self.dateVal.get())))
-        l2= tkinter.Label(self, text= self.eventVal, fg="white", background = "gray", padx = 3, pady = 3)
+        l2= tkinter.Label(self, text= self.eventVal.get(), fg="white", background = "gray", padx = 3, pady = 3)
         l2.grid(column =1, row = 6, rowspan= 3, sticky = "WS")
+        self.ent = self.E1.get()
+        eventString =( self.getYear() + "\t" +str(self.monthVal.get()) + "\t" + str(self.dateVal.get()) + "\t" + self.ent)
+        writeEventLog(self.getYear(), str(self.monthVal.get()) , str(self.dateVal.get()), eventString)
 
-
-
+    def onPressEnter(self, val):
+        self.createEventLabel()
 
     def setYear(self, val):
         self.yearVal.set(val)
