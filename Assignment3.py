@@ -50,6 +50,7 @@ class calendarApp(tkinter.Tk):
 
 
         self.createCal()
+        self.createEventLog()
         
 
 
@@ -85,8 +86,17 @@ class calendarApp(tkinter.Tk):
         self.dateOpt.config(width = 20)
         self.dateOpt.grid(column= 1, row = 3, sticky = "EWS", padx= 2)
 
+    def createEventLog(self):
+        self.eventVal = tkinter.StringVar()
+        l1= tkinter.Label(self, text= "Events:", fg="white", background = "gray", padx = 3, pady = 3)
+        l1.grid(column =0, row = 4, rowspan= 3, sticky = "WS")
+        E1 = tkinter.Entry(self, textvariable= self.eventVal)
+        E1.grid(column = 1, row = 4, columnspan= 3,rowspan = 3, sticky = "EWS")
 
-    def setYear (self, val):
+
+
+
+    def setYear(self, val):
         self.yearVal.set(val)
         self.createCal()
 
@@ -111,7 +121,7 @@ class calendarApp(tkinter.Tk):
 if __name__ == '__main__':
     app = calendarApp(None)
     app.title ('Calendar App')
-    app.wm_geometry("400x200")
+    app.wm_geometry("300x200")
     app.mainloop()
 
         
