@@ -105,7 +105,7 @@ class calendarApp(tkinter.Tk):
         l2.grid(column =1, row = 6, rowspan= 3, sticky = "WS")
         self.ent = self.E1.get()
         eventString =( self.getYear() + "\t" +str(self.monthVal.get()) + "\t" + str(self.dateVal.get()) + "\t" + self.ent)
-        writeEventLog( eventString)
+        l2.bind("<Return>", writeEventLog( eventString))
 
     def onPressEnter(self, val):
         self.createEventLabel()
